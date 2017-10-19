@@ -1,9 +1,7 @@
 
----------------------------------COSC631 FINAL PROJECT----------------------------- 
+---------------------------------  PROJECT----------------------------- 
 PREPARED BY BENYAM MENGESHA,
-       IKENNA CHUKWUDOZIE, 
-       ISSAIAH IDUBOR,
-      JAGADISH MOHNRAM
+        
 ---------------------------------------------creating the xml table----------------------------------------------------------------
 drop table xml_tab;
 CREATE TABLE xml_tab (
@@ -17,7 +15,7 @@ insert into xml_tab values('1',xmltype('<employee>
     <title>CLERK</title>
     <hiredate>17-DEC-1980</hiredate>
   </employee>'));
-  -----------------------------------------for the second row in xml file------------------------------------------
+  -----------------------------------------for the second row in xml file---------------------------------
   insert into xml_tab values('2',xmltype('<employee>
   <empno>7499</empno>
     <ename>ALLEN</ename>
@@ -25,14 +23,14 @@ insert into xml_tab values('1',xmltype('<employee>
     <hiredate>20-FEB-1981</hiredate>
     </employee>'));
 
-     ---------------------------------------------for the third row in xml file----------------------------------------------------
+     ---------------------------------------------for the third row in xml file-----------------------------
   insert into xml_tab values('3',xmltype('<employee>
    <empno>7521</empno>
     <ename>WARD</ename>
     <title>SALESMAN</title>
     <hiredate>22-FEB-1981</hiredate>
     </employee>'));
-   ---------------------------------------------------------------for the fourth row in xml file------------------------------
+   ----------------------------------------------for the fourth row in xml file------------------------------
   insert into xml_tab values('4',xmltype('<employee>
     <empno>7566</empno>
     <ename>JONES</ename>
@@ -166,7 +164,7 @@ X.XML_DATA.GETCLOBVAL()
   </employee>
 </employees>
 ------------------------------------------------------end of  xml file----------------------------------------------------------------
---------------------------display xml file in in in columns and rows---------------------------------------------------------
+--------------------------display xml file in columns and rows---------------------------------------------------------
 DECLARE
   l_xmltype XMLTYPE;
 BEGIN
@@ -189,7 +187,7 @@ BEGIN
   COMMIT;
 END;
 /
----------------end of the code TO DISPLAY THE XML FILE IN XML FORMAT FFROM THE XML TABLE----------- 
+---------------end of the code TO DISPLAY THE XML FILE IN XML FORMAT FROM THE XML TABLE----------- 
 SET LONG 5000
 SELECT x.xml_data.getClobVal()
 FROM   xml_tab x;
@@ -480,10 +478,6 @@ THE XML FILE OUTPUT
 
 
 
-THE XML FILE --- XML_4
-  
-THE THRID TABLE AFTER INSERTING ELEMNTS FROM THE XML FILE
- 
 
 
 ==================================end of the project====================================
