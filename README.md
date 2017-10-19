@@ -1,2 +1,2 @@
 # xmltosql
-xml to sql changing module written by Oracle PL/SQL
+  module to change xml file to sql table written by Oracle PL/SQL
