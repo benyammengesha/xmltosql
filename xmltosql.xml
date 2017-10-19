@@ -8,7 +8,7 @@ CREATE TABLE xml_tab (
   id       NUMBER,
   xml_data XMLTYPE
 );
-------------------------------inserting the data in the xml table--------------------------------------------------------------
+------------------------------inserting data in the xml table ( first row)--------------------------------------------------------------
 insert into xml_tab values('1',xmltype('<employee>
     <empno>7369</empno>
     <ename>SMITH</ename>
@@ -204,7 +204,7 @@ FROM   xml_tab x,
            "HIREDATE" VARCHAR2(11) PATH 'hiredate'
          ) xt;
 ---------------------------------------------------creating SQL TABLE ------------------------------------------------------------- drop table employee;
-create table employee (empno varchar2(40),ename varchar2(40),TITLE  varchar2(90),hiredate varchar2(50));
+create table employee (empno varchar2(40),ename varchar2(40),TITLE  varchar2(40),hiredate varchar2(50));
 -------------------------------------------end of creating the SQL TABLE-------------------------------------------------------
 
  ----------------------------PROCUDERE FOR INSERTING THE XML FILE IN THE SQL TABLE---------------------------- 
@@ -465,20 +465,11 @@ EXEC INSERT_INSQLTableFromXMLFile4;
 SELECT * FROM DEPART;
 ---------TO CHECK THE INSERTED ATTRIBUTES FROM THE XML FILE  TO THE SQL TABLE EMPLOYEE-------
  
-THE XML FILE OUTPUT 
- 
+ screen shot of the output ,,,,,,,,,, cannot  put picture in here
 
 ----------------------------OUTPUT FOR    (SELECT * FROM EMPLOYEE;)----------------------------------------------
 
+ screen shot of the output ,,,,,,,,,, cannot put picture in  here
  
- 
-
- 
-
-
-
-
-
-
 ==================================end of the project====================================
 
