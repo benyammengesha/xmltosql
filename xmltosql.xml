@@ -1,0 +1,490 @@
+
+---------------------------------COSC631 FINAL PROJECT----------------------------- 
+PREPARED BY BENYAM MENGESHA,
+       IKENNA CHUKWUDOZIE, 
+       ISSAIAH IDUBOR,
+      JAGADISH MOHNRAM
+---------------------------------------------creating the xml table----------------------------------------------------------------
+drop table xml_tab;
+CREATE TABLE xml_tab (
+  id       NUMBER,
+  xml_data XMLTYPE
+);
+------------------------------inserting the data in the xml table--------------------------------------------------------------
+insert into xml_tab values('1',xmltype('<employee>
+    <empno>7369</empno>
+    <ename>SMITH</ename>
+    <title>CLERK</title>
+    <hiredate>17-DEC-1980</hiredate>
+  </employee>'));
+  -----------------------------------------for the second row in xml file------------------------------------------
+  insert into xml_tab values('2',xmltype('<employee>
+  <empno>7499</empno>
+    <ename>ALLEN</ename>
+    <title>SALESMAN</title>
+    <hiredate>20-FEB-1981</hiredate>
+    </employee>'));
+
+     ---------------------------------------------for the third row in xml file----------------------------------------------------
+  insert into xml_tab values('3',xmltype('<employee>
+   <empno>7521</empno>
+    <ename>WARD</ename>
+    <title>SALESMAN</title>
+    <hiredate>22-FEB-1981</hiredate>
+    </employee>'));
+   ---------------------------------------------------------------for the fourth row in xml file------------------------------
+  insert into xml_tab values('4',xmltype('<employee>
+    <empno>7566</empno>
+    <ename>JONES</ename>
+    <title>MANAGER</title>
+    <hiredate>02-APR-1981</hiredate>
+    </employee>'));
+    ------------------------------------for the fifth row in xml file-------------------------------------------------------------
+    insert into xml_tab values('5',xmltype('<employee>
+     <empno>7654</empno>
+    <ename>MARTIN</ename>
+    <title>SALESMAN</title>
+    <hiredate>28-SEP-1981</hiredate>
+    </employee>'));
+    ----------------------------------------for the sixth row in xml file-----------------------------------------------------------
+    insert into xml_tab values('6',xmltype('<employee>
+    <empno>7934</empno>
+    <ename>MILLER</ename>
+    <title>CLERK</title>
+    <hiredate>23-JAN-1982</hiredate>
+    </employee>'));
+    
+---------------------------------------------------show the xml file in the server--------------------------------
+DECLARE
+ l_xmltype XMLTYPE;
+BEGIN
+  SELECT XMLELEMENT("employees",
+           XMLAGG(
+             XMLELEMENT("employee",
+               XMLFOREST(
+                 e.empno AS "empno",
+                 e.ename AS "ename",
+                 e.title AS "title",
+                 TO_CHAR(e.hiredate, 'DD-MON-YYYY') AS "hiredate"
+               )
+             )
+           ) 
+         )
+  INTO   l_xmltype
+  FROM   emp e;
+SET LONG 5000
+SELECT x.xml_data.getClobVal()
+FROM   xml_tab x;
+
+X.XML_DATA.GETCLOBVAL()
+
+---------------------------------------------------------------    XML FILE  ------------------------------------------------------ 
+<employees>
+  <employee>
+    <empno>7369</empno>
+    <ename>SMITH</ename>
+    <title>CLERK</title>
+    <hiredate>17-DEC-1980</hiredate>
+  </employee>
+  <employee>
+    <empno>7499</empno>
+    <ename>ALLEN</ename>
+    <title>SALESMAN</title>
+    <hiredate>20-FEB-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7521</empno>
+    <ename>WARD</ename>
+    <title>SALESMAN</title>
+    <hiredate>22-FEB-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7566</empno>
+    <ename>JONES</ename>
+    <title>MANAGER</title>
+    <hiredate>02-APR-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7654</empno>
+    <ename>MARTIN</ename>
+    <title>SALESMAN</title>
+    <hiredate>28-SEP-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7698</empno>
+    <ename>BLAKE</ename>
+    <title>MANAGER</title>
+    <hiredate>01-MAY-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7782</empno>
+    <ename>CLARK</ename>
+    <title>MANAGER</title>
+    <hiredate>09-JUN-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7788</empno>
+    <ename>SCOTT</ename>
+    <title>ANALYST</title>
+    <hiredate>19-APR-1987</hiredate>
+  </employee>
+  <employee>
+    <empno>7839</empno>
+    <ename>KING</ename>
+    <title>PRESIDENT</title>
+    <hiredate>17-NOV-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7844</empno>
+    <ename>TURNER</ename>
+    <title>SALESMAN</title>
+    <hiredate>08-SEP-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7876</empno>
+    <ename>ADAMS</ename>
+    <title>CLERK</title>
+    <hiredate>23-MAY-1987</hiredate>
+  </employee>
+  <employee>
+    <empno>7900</empno>
+    <ename>JAMES</ename>
+    <title>CLERK</title>
+    <hiredate>03-DEC-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7902</empno>
+    <ename>FORD</ename>
+    <title>ANALYST</title>
+    <hiredate>03-DEC-1981</hiredate>
+  </employee>
+  <employee>
+    <empno>7934</empno>
+    <ename>MILLER</ename>
+    <title>CLERK</title>
+    <hiredate>23-JAN-1982</hiredate>
+  </employee>
+</employees>
+------------------------------------------------------end of  xml file----------------------------------------------------------------
+--------------------------display xml file in in in columns and rows---------------------------------------------------------
+DECLARE
+  l_xmltype XMLTYPE;
+BEGIN
+  SELECT XMLELEMENT("employees",
+           XMLAGG(
+             XMLELEMENT("employee",
+               XMLFOREST(
+                 e.empno AS "empno",
+                 e.ename AS "ename",
+                 e.title AS "title",
+                 TO_CHAR(e.hiredate, 'DD-MON-YYYY') AS "hiredate"
+               )
+             )
+           ) 
+         )
+  INTO   l_xmltype
+  FROM   emp e;
+
+  INSERT INTO xml_tab VALUES (1, l_xmltype);
+  COMMIT;
+END;
+/
+---------------end of the code TO DISPLAY THE XML FILE IN XML FORMAT FFROM THE XML TABLE----------- 
+SET LONG 5000
+SELECT x.xml_data.getClobVal()
+FROM   xml_tab x;
+
+----------------------------------------Show the XML FILE  saved in  the server---------------------------------------------
+SELECT xt.*
+FROM   xml_tab x,
+       XMLTABLE('/employees/employee'
+         PASSING x.xml_data
+         COLUMNS 
+           "EMPNO"    VARCHAR2(4)  PATH 'empno',
+           "ENAME"    VARCHAR2(10) PATH 'ename',
+           "TITLE"    VARCHAR2(9)  PATH 'TITLE',
+           "HIREDATE" VARCHAR2(11) PATH 'hiredate'
+         ) xt;
+---------------------------------------------------creating SQL TABLE ------------------------------------------------------------- drop table employee;
+create table employee (empno varchar2(40),ename varchar2(40),TITLE  varchar2(90),hiredate varchar2(50));
+-------------------------------------------end of creating the SQL TABLE-------------------------------------------------------
+
+ ----------------------------PROCUDERE FOR INSERTING THE XML FILE IN THE SQL TABLE---------------------------- 
+ 
+CREATE OR REPLACE PROCEDURE INSERT_INSQLTableFromXMLFile is 
+cursor c1 is select x.xml_data from  xml_tab x;
+r xmltype;
+BEGIN
+Open c1;
+Loop
+	fetch c1 into r;
+	exit when c1%notfound;	
+		insert into employee VALUES(r.extract('/employee/empno/text()'),r.extract('/employee/ename/text()'),r.extract('/employee/title/text()'),r.extract('/employee/hiredate/text()'));
+End loop;
+Close c1;
+END;
+/
+
+------------------------------------------------------------------------------------------------------------------------------------------
+ 
+========================SECOND TABLE AND ITS FUNCTIONS==============================
+drop table xml_tab_3;
+CREATE TABLE xml_tab_3 (
+  id       NUMBER,
+  xml_data XMLTYPE
+);
+------------------------------inserting the date in the xml_tab_3 table----------------------------------------------------
+ 
+ insert into xml_tab_3 values('1',xmltype( '<customer>
+ <CUSTNO>A1234</CUSTNO>
+ <FNAME>Jones</FNAME>
+ <LNAME>John</LNAME>
+ <ADDRESS>123 MAIN ST</ADDRESS>
+ <CITY>LARGO</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4567</PHONE>
+ </customer>'));
+  
+  ---------for the second row in xml file------
+insert into xml_tab_3 values('1',xmltype( '<customer>
+ <CUSTNO>A12233</CUSTNO>
+ <FNAME>Smith</FNAME>
+ <LNAME>ben</LNAME>
+ <ADDRESS>234 Elm St</ADDRESS>
+ <CITY>Lanham</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>'));
+  --------------------------------------for the third row in xml file------
+  insert into xml_tab_3 values('1',xmltype( '<customer>
+ <CUSTNO>A1456</CUSTNO>
+ <FNAME>alex</FNAME>
+ <LNAME>John</LNAME>
+ <ADDRESS>289 Maria St</ADDRESS>
+ <CITY>bowie</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20904</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>'));
+    ------------------------------------for the fourth row in xml file------
+  insert into xml_tab_3 values('1',xmltype( '<customer>
+ <CUSTNO>B1678</CUSTNO>
+ <FNAME>selam</FNAME>
+ <LNAME>lemma</LNAME>
+ <ADDRESS>268 st.Luois</ADDRESS>
+ <CITY>new york</CITY>
+ <STATE>Ca</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>'));
+    ----------------------------------for the fifth row in xml file------
+insert into xml_tab_3 values('1',xmltype( '<customer>
+ <CUSTNO>c3567</CUSTNO>
+ <FNAME>benyam</FNAME>
+ <LNAME>mengesha</LNAME>
+ <ADDRESS>4567 winterthur ln.</ADDRESS>
+ <CITY>silver spring</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20904</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>'));
+    ---------for the sixth row in xml file------
+insert into xml_tab_3 values('1',xmltype( '<customer>
+ <CUSTNO>A1234</CUSTNO>
+ <FNAME>brown</FNAME>
+ <LNAME>John</LNAME>
+ <ADDRESS>123 MAIN ST</ADDRESS>
+ <CITY>addis ababa</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4567</PHONE>
+ </customer>'));
+=============================================================================
+
+--------------------------------------------------creating second SQL TABLE --------------------------------------------------- 
+drop table customer;
+create table customer(custno varchar2(20),fname varchar2(20),lname  varchar2(20),address varchar2(20),city varchar2(20), state varchar2(20),zipcode varchar2(20),phone varchar2(20));
+-----------------------------------------------end of creating the SQL TABLE--------------------------------------------------- 
+--------------------------------PROCUDERE FOR INSERTING THE XML FILE IN THE SQL TABLE------------------------
+ 
+CREATE OR REPLACE PROCEDURE INSERT_INSQLTableFromXMLFile2 is 
+cursor c1 is select x.xml_data from  xml_tab_3 x;
+r xmltype;
+BEGIN
+Open c1;
+Loop
+	fetch c1 into r;
+	exit when c1%notfound;	
+		insert into customer VALUES(r.extract('/customer/custno/text()'),r.extract('/customer/fname/text()'),r.extract('/customer/lname/text()'),r.extract('/customer/address/text()'),r.extract('/customer/city/text()'),r.extract('/customer/state/text()'),r.extract('/customer/zipcode/text()'), r.extract('/customer/phone/text()'));
+End loop;
+Close c1;
+END;
+/
+----------------------EXCUTING THE PROCEDURE TO INSERT ALL XML FILE IN THE SQL TABLE----------------------
+EXEC INSERT_INSQLTableFromXMLFile2;
+===============================for checking the customer file============================
+select * from customer;
+
+------------------------------------------to SEE WHAT IS IN  the xml_tab_3 file-------------------------
+SELECT x.xml_data.getClobVal()
+FROM   xml_tab_3 x;
+----------------------------the xml_tab_3 file---------------------------------------
+<customers>
+<customer>
+ <CUSTNO>A1234</CUSTNO>
+ <FNAME>Jones</FNAME>
+ <LNAME>John</LNAME>
+ <ADDRESS>123 MAIN ST</ADDRESS>
+ <CITY>LARGO</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4567</PHONE>
+ </customer>
+<customer>
+ <CUSTNO>A12233</CUSTNO>
+ <FNAME>Smith</FNAME>
+ <LNAME>ben</LNAME>
+ <ADDRESS>234 Elm St</ADDRESS>
+ <CITY>Lanham</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>
+<customer>
+ <CUSTNO>A1456</CUSTNO>
+ <FNAME>alex</FNAME>
+ <LNAME>John</LNAME>
+ <ADDRESS>289 Maria St</ADDRESS>
+ <CITY>bowie</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20904</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>
+<customer>
+ <CUSTNO>B1678</CUSTNO>
+ <FNAME>selam</FNAME>
+ <LNAME>lemma</LNAME>
+ <ADDRESS>268 st.Luois</ADDRESS>
+ <CITY>new york</CITY>
+ <STATE>Ca</STATE>
+ <ZIPCODE>20745</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>
+<customer>
+ <CUSTNO>c3567</CUSTNO>
+ <FNAME>benyam</FNAME>
+ <LNAME>mengesha</LNAME>
+ <ADDRESS>4567 winterthur ln.</ADDRESS>
+ <CITY>silver spring</CITY>
+ <STATE>MD</STATE>
+ <ZIPCODE>20904</ZIPCODE>
+ <PHONE>301-123-4560</PHONE>
+ </customer>
+ </customers>
+----------------------------end of the xml_tab_3 file-----------------------------
+----------------------EXCUTING THE PROCEDURE TO INSERT ALL XML FILE IN THE SQL TABLE--------------------- 
+EXEC INSERT_INSQLTableFromXMLFile;
+
+=======================CREATING XML FILE--------------------------------------
+drop table xml_tab_4;
+CREATE TABLE xml_tab_4 (
+  id       NUMBER,
+  xml_data XMLTYPE
+);
+------------------------DEPARTMENT XML FILE
+insert into xml_tab_4 values('1',xmltype( '<DEPARTMENT>
+<DEPT>
+<DID>D1</DID>
+<DNAME>IT</DNAME>
+<DMANAGER>FRANK BROWN</DMANAGER>
+</DEPT>
+</DEPARTMENT>'));
+---------------------------
+insert into xml_tab_4 values('1',xmltype( '<DEPARTMENT>
+<DEPT>
+<DID>D2</DID>
+<DNAME>SOCIAL SCIENSE</DNAME>
+<DMANAGER>BOB TOE</DMANAGER>
+</DEPT>
+</DEPARTMENT>'));
+---------------------------============================================
+insert into xml_tab_4 values('1',xmltype('<DEPARTMENT>
+<DEPT>
+<DID>D3</DID>
+<DNAME>ECONOMIC</DNAME>
+<DMANAGER>ALBERT BROKE</DMANAGER>
+</DEPT>
+</DEPARTMENT>'));
+---------------------------===============================
+insert into xml_tab_4 values('1',xmltype('<DEPARTMENT>
+<DEPT>
+<DID>D4</DID>
+<DNAME>MUSIC</DNAME>
+<DMANAGER>FRANK BROWN</DMANAGER>
+</DEPT>
+</DEPARTMENT>'));
+--------------------------------------------------------------------------------------------------------------------------------
+insert into xml_tab_4 values('1',xmltype('<DEPARTMENT>
+<DEPT>
+<DID>D5</DID>
+<DNAME>MATH</DNAME>
+<DMANAGER>JAMES BOND</DMANAGER>
+</DEPT>
+</DEPARTMENT>'));
+--=============================CREATING SQL TABLE-----------------------------------------
+drop table DEPART;
+create table DEPART(DID varchar2(40),DNAME varchar2(40),DMANAGER varchar2(40));
+
+--================================END OF XML FILE================================
+----SHOW THE VALUES OF THE XML_4 FILE
+SELECT x.xml_data.getstringVal()
+FROM   xml_tab_4 x;
+
+
+------PROCEDURE FOR INSERTING  THE XML FILE INTO THE SQL TABLE-============================
+
+CREATE OR REPLACE PROCEDURE INSERT_INSQLTableFromXMLFile4 is 
+cursor c1 is select x.xml_data from  xml_tab_4 x;
+r xmltype;
+BEGIN
+Open c1;
+Loop
+	fetch c1 into r;
+	exit when c1%notfound;	
+		insert into DEPART VALUES(r.extract('/DEPARTMENT/DEPT/DID/text()'),
+        r.extract('/DEPARTMENT/DEPT/DNAME/text()'),r.extract('/DEPARTMENT/DEPT/DMANAGER/text()'));
+End loop;
+Close c1;
+END;
+/
+----------------------EXCUTING THE PROCEDURE TO INSERT ALL XML FILE IN THE SQL TABLE---------------------------------
+EXEC INSERT_INSQLTableFromXMLFile4;
+
+--SHOW THE XML FILE FIELDS ARE INSERTED IN THE SQL TABLE--------
+
+SELECT * FROM DEPART;
+---------TO CHECK THE INSERTED ATTRIBUTES FROM THE XML FILE  TO THE SQL TABLE EMPLOYEE-------
+ 
+THE XML FILE OUTPUT 
+ 
+
+----------------------------OUTPUT FOR    (SELECT * FROM EMPLOYEE;)----------------------------------------------
+
+ 
+ 
+
+ 
+
+
+
+
+THE XML FILE --- XML_4
+  
+THE THRID TABLE AFTER INSERTING ELEMNTS FROM THE XML FILE
+ 
+
+
+==================================end of the project====================================
+
